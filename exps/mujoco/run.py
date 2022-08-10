@@ -20,7 +20,7 @@ def main(args):
     environment = GymEnvironment(
         env_config["name"], ctrl_cost_weight=env_config["action_cost"], seed=args.seed
     )
-    reward_model = environment.env.reward_model()
+    reward_model = environment.env.reward_model
     if args.exploration == "optimistic":
         dynamical_model = HallucinatedModel.default(environment, beta=args.beta)
         environment.add_wrapper(HallucinationWrapper)
