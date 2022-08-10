@@ -163,7 +163,7 @@ class ModelBasedAgent(AbstractAgent):
 
         self.dataset = BootstrapExperienceReplay(
             max_len=max_memory,
-            transformations=dynamical_model.forward_transformations,
+            transformations=dynamical_model.transformations,
             num_bootstraps=num_heads,
             bootstrap=bootstrap,
         )
@@ -241,7 +241,7 @@ class ModelBasedAgent(AbstractAgent):
                 self.policy(state), **self.policy.dist_params
             )
             self.pi = policy
-            action = self.plan(state).detach().numpy()
+            action = self.plan(state).detach().numpy().squeeze()
 
         # action = action[..., : self.dynamical_model.base_model.dim_action[0]]
         return action.clip(
@@ -316,9 +316,9 @@ class ModelBasedAgent(AbstractAgent):
             dynamical_model=self.dynamical_model,
             reward_model=self.reward_model,
             policy=self.policy,
-            num_steps=self.plan_horizon,
+            num_model_steps=self.plan_horizon,
             gamma=self.gamma,
-            num_samples=self.plan_samples,
+            num_particles=self.plan_samples,
             value_function=self.value_function,
             reward_transformer=self.algorithm.reward_transformer,
             termination_model=self.termination_model,
@@ -418,7 +418,7 @@ class ModelBasedAgent(AbstractAgent):
                     self.simulate_model()
 
                 # Log last simulations.
-                self._log_simulated_trajectory()
+                # self._log_simulated_trajectory()
 
                 # Step 2: Optimize policy
                 self.learn_policy()

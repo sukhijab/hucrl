@@ -58,7 +58,7 @@ class MBMPO(AbstractAlgorithm):
             epsilon_mean=epsilon_mean,
             epsilon_var=epsilon_var,
             regularization=regularization,
-            num_samples=num_action_samples,
+            num_policy_samples=num_action_samples,
             reward_transformer=reward_transformer,
             gamma=gamma,
         )
@@ -91,12 +91,12 @@ class MBMPO(AbstractAlgorithm):
                 num_steps=1,
                 gamma=self.gamma,
                 value_function=self.critic_target,
-                num_samples=self.num_samples,
+                num_samples=self.num_policy_samples,
                 reward_transformer=self.reward_transformer,
                 termination_model=self.termination_model,
                 reduction="min",
             )
-        q_values = value_estimate
+        q_values = value_estimate.squeeze(-1)
         log_p, _ = self.get_log_p_and_ope_weight(obs.state, obs.action)
 
         # Since actions come from policy, value is the expected q-value

@@ -13,3 +13,4 @@ kl_regularization: False
 calibrate: False
 model_learn_exploration_episodes: 5
 exploration_episodes: 10
+tensorboard: True

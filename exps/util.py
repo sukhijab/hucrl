@@ -15,7 +15,7 @@ from rllib.model.gp_model import ExactGPModel, RandomFeatureGPModel, SparseGPMod
 from rllib.model.nn_model import NNModel
 from rllib.model.transformed_model import TransformedModel
 from rllib.policy import MPCPolicy, NNPolicy
-from rllib.util.neural_networks import init_head_weight, zero_bias
+from rllib.util.neural_networks.utilities import init_head_weight, zero_bias
 from rllib.util.training.agent_training import evaluate_agent, train_agent
 from rllib.value_function import NNQFunction, NNValueFunction
 
@@ -116,7 +116,7 @@ def _get_mpc_policy(
             scale=1 / 8,
             action_scale=action_scale,
             num_iter=params.mpc_num_iter,
-            num_samples=params.mpc_num_samples,
+            num_particles=params.mpc_num_samples,
             num_elites=params.mpc_num_elites,
             alpha=params.mpc_alpha,
             terminal_reward=terminal_reward,

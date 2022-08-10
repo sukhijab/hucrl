@@ -6,3 +6,7 @@ mpc_solver_name: CEMShooting
 model_learn_exploration_episodes: 0
 exploration_episodes: 1
 calibrate: False
+# Parameters set by Bhavi for testing cem-mpc on pendulumg swing up:
+num_particles: 50
+num_elites: 5
+num_iter: 10

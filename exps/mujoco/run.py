@@ -5,7 +5,7 @@ import importlib
 
 from rllib.environment import GymEnvironment
 from rllib.model import TransformedModel
-from rllib.util import set_random_seed
+from rllib.util.utilities import set_random_seed
 from rllib.util.training.agent_training import evaluate_agent, train_agent
 
 from exps.util import parse_config_file
@@ -17,7 +17,6 @@ def main(args):
     """Run experiment."""
     set_random_seed(args.seed)
     env_config = parse_config_file(args.env_config_file)
-
     environment = GymEnvironment(
         env_config["name"], ctrl_cost_weight=env_config["action_cost"], seed=args.seed
     )
@@ -63,7 +62,9 @@ if __name__ == "__main__":
         default="BPTT",
         choices=["BPTT", "MVE", "DataAugmentation", "MPC", "MBMPO"],
     )
-    parser.add_argument("--agent-config-file", type=str, default="config/bptt.yaml")
+    parser.add_argument(
+        "--agent-config-file", type=str, default="config/agents/bptt.yaml"
+    )
     parser.add_argument(
         "--env-config-file", type=str, default="config/envs/half-cheetah.yaml"
     )
